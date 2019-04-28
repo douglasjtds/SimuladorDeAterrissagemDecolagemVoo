@@ -1,0 +1,7 @@
+D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\bin\Debug\SimuladorDeAeroporto.exe.config
+D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\bin\Debug\SimuladorDeAeroporto.exe
+D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\bin\Debug\SimuladorDeAeroporto.pdb
+D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.csprojAssemblyReference.cache
+D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.csproj.CoreCompileInputs.cache
+D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.exe
+D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.pdb
