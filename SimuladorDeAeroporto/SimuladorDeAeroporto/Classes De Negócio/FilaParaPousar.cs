@@ -50,9 +50,12 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
         }
         #endregion
 
-        public void SetarGasolinaAviao() //TODO: Criar método que seta um inteiro aleatório de 1 a 20 para o nível de gasolina de uma instância de Aviao
+        public int SetarGasolinaAviao() //TODO: Criar método que seta um inteiro aleatório de 1 a 20 para o nível de gasolina de uma instância de Aviao
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            Random random = new Random();
+            int randomNumber = random.Next(1, 21);
+            return randomNumber;
         }
     }
 }

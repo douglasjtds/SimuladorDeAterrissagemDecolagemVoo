@@ -5,3 +5,10 @@ D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estrutura
 D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.csproj.CoreCompileInputs.cache
 D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.exe
 D:\Users\douglasjtds\Desktop\FACULDADE\9º semestre kkj\Algorítimos e Estruturas de Dados\projetos\em .NET\TP1\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.pdb
+C:\Users\OTC91020\Documents\someOtherProjects\SimuladorDeAterrissagemDecolagemVoo\SimuladorDeAeroporto\SimuladorDeAeroporto\bin\Debug\SimuladorDeAeroporto.exe.config
+C:\Users\OTC91020\Documents\someOtherProjects\SimuladorDeAterrissagemDecolagemVoo\SimuladorDeAeroporto\SimuladorDeAeroporto\bin\Debug\SimuladorDeAeroporto.exe
+C:\Users\OTC91020\Documents\someOtherProjects\SimuladorDeAterrissagemDecolagemVoo\SimuladorDeAeroporto\SimuladorDeAeroporto\bin\Debug\SimuladorDeAeroporto.pdb
+C:\Users\OTC91020\Documents\someOtherProjects\SimuladorDeAterrissagemDecolagemVoo\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.csprojAssemblyReference.cache
+C:\Users\OTC91020\Documents\someOtherProjects\SimuladorDeAterrissagemDecolagemVoo\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.csproj.CoreCompileInputs.cache
+C:\Users\OTC91020\Documents\someOtherProjects\SimuladorDeAterrissagemDecolagemVoo\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.exe
+C:\Users\OTC91020\Documents\someOtherProjects\SimuladorDeAterrissagemDecolagemVoo\SimuladorDeAeroporto\SimuladorDeAeroporto\obj\Debug\SimuladorDeAeroporto.pdb
