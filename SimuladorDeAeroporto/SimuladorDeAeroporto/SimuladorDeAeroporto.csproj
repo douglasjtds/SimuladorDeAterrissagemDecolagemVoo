@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes De Negócio\Aviao.cs" />
+    <Compile Include="Classes De Negócio\Fila1.cs" />
+    <Compile Include="Interfaces\IFila.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
