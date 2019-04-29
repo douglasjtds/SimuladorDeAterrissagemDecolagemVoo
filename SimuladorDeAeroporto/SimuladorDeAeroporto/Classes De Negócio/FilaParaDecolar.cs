@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimuladorDeAeroporto.Classes_De_Negócio
 {
-    public class Fila1 : IFila
+    public class FilaParaDecolar : IFila
     {
         private class Celula
         {
