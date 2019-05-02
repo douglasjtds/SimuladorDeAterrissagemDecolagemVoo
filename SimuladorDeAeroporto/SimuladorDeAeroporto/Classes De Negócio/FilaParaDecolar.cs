@@ -9,6 +9,8 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
 {
     public class FilaParaDecolar : IFila
     {
+        public int ReferenteAPista;
+
         private class Celula
         {
             internal Object item;
