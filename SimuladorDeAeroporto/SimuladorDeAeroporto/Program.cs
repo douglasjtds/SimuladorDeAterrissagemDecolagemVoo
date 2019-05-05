@@ -47,9 +47,9 @@ namespace SimuladorDeAeroporto
             Fila7.ReferenteAPista = 3;
             #endregion
 
-            GeraAvioesPouso(GeraQuantidadeDeAvioesAleatoria());
+            //GeraAvioesPouso(GeraQuantidadeDeAvioesAleatoria());
 
-            GeraAvioesDecolagem(GeraQuantidadeDeAvioesAleatoria());
+            //GeraAvioesDecolagem(GeraQuantidadeDeAvioesAleatoria());
 
             while (true)
             {
@@ -58,36 +58,58 @@ namespace SimuladorDeAeroporto
                 //Console.WriteLine(filaParaPousar.SetarGasolinaAviao()); //TESTE
 
                 //chamar todas as funções aqui
+                Console.WriteLine("Inicializando aeroporto...");
+                Thread.Sleep(100);
+
+                GeraAvioes(GeraQuantidadeDeAvioesAleatoria());
             }
         }
 
-        //if (!aviao.IsAviaoDecolando(aviao.Id_Aviao))
-        private static List<Aviao> GeraAvioesPouso(int quantidade)
+        ////if (!aviao.IsAviaoDecolando(aviao.Id_Aviao))
+        //private static List<Aviao> GeraAvioesPouso(int quantidade)
+        //{
+        //    for (int i = 0; i < quantidade; i++)
+        //    {
+        //        Aviao aviao = new Aviao();
+        //        aviao.NivelGasolina = aviao.GeraValorAleatorioParaGasolina();
+        //        //aviao.Id_Aviao = idAviao + 1;
+        //        //idAviao++;
+        //        //aviao.ReferenteAPista = ; //VER COMO VAI SER ESCOLHIDO ISSO
+        //    }
+        //}
+
+        //int idAviao = 0;
+
+        //private static List<Aviao> GeraAvioesDecolagem(int quantidade)
+        //{
+        //    for (int i = 0; i < quantidade; i++)
+        //    {
+        //        Aviao aviao = new Aviao();
+        //        aviao.NivelGasolina = null;
+        //        //aviao.Id_Aviao = idAviao + 1;
+        //        //idAviao++;
+        //        //aviao.ReferenteAPista = ; //VER COMO VAI SER ESCOLHIDO ISSO
+        //    }
+        //}
+
+
+        public static List<Aviao> GeraAvioes(int quantidade)
         {
-            for (int i = 0; i < quantidade; i++)
+            int idAviao = 1;
+            for (int i = 0; i >= GeraQuantidadeDeAvioesAleatoria(); i++)
             {
                 Aviao aviao = new Aviao();
-                aviao.NivelGasolina = aviao.GeraValorAleatorioParaGasolina();
-                //aviao.Id_Aviao = idAviao + 1;
-                //idAviao++;
-                //aviao.ReferenteAPista = ; //VER COMO VAI SER ESCOLHIDO ISSO
+                aviao.Id_Aviao = idAviao;
+                idAviao++;
+                if (!aviao.IsAviaoDecolando(aviao.Id_Aviao))
+                    aviao.NivelGasolina = null;
+                for (int j = 0; j >= 3; j++)
+                    aviao.ReferenteAPista = j; //VER COMO VAI SER ESCOLHIDO ISSO
             }
+            //return GeraAvioes(); //ISSO MESMO?
+            //quantidade = GeraQuantidadeDeAvioesAleatoria();
+            //return quantidade;
         }
-
-        int idAviao = 0;
-
-        private static List<Aviao> GeraAvioesDecolagem(int quantidade)
-        {
-            for (int i = 0; i < quantidade; i++)
-            {
-                Aviao aviao = new Aviao();
-                aviao.NivelGasolina = null;
-                //aviao.Id_Aviao = idAviao + 1;
-                //idAviao++;
-                //aviao.ReferenteAPista = ; //VER COMO VAI SER ESCOLHIDO ISSO
-            }
-        }
-
 
 
         public static int GeraQuantidadeDeAvioesAleatoria()
