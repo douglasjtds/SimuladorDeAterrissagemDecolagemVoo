@@ -1,4 +1,5 @@
 ﻿using SimuladorDeAeroporto.Classes_De_Negócio;
+using SimuladorDeAeroporto.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,121 +11,107 @@ namespace SimuladorDeAeroporto
 {
     public class Program
     {
-        private static FilaParaPousar Fila1;
-        private static FilaParaPousar Fila2;
-        private static FilaParaPousar Fila3;
-        private static FilaParaPousar Fila4;
-
-        private static FilaParaDecolar Fila5;
-        private static FilaParaDecolar Fila6;
-        private static FilaParaDecolar Fila7;
+        private static int numeroMaxIteracao = 10000;
+        private static int idMaximoAterrissagem = 1;
+        private static int idMaximoDecolagem = 2;
 
         static void Main(string[] args)
         {
             Console.WriteLine("----- [Simulador de Aeroporto] -----");
             Thread.Sleep(1000);
-
             #region [instanciando as filas]
-            Fila1 = new FilaParaPousar();
-            Fila1.ReferenteAPista = 1;
 
-            Fila2 = new FilaParaPousar();
-            Fila2.ReferenteAPista = 1;
 
-            Fila3 = new FilaParaPousar();
-            Fila3.ReferenteAPista = 2;
+            var pista1 = new Pista
+            {
+                filas = new List<Fila>
+                {
+                    new Fila { tipo = FilaEnum.Aterrissar },
+                    new Fila { tipo = FilaEnum.Aterrissar  },
+                    new Fila { tipo = FilaEnum.Decolar  }
+                }
+            };
+            var pista2 = new Pista
+            {
+                filas = new List<Fila>
+                {
+                    new Fila { tipo = FilaEnum.Aterrissar },
+                    new Fila { tipo = FilaEnum.Aterrissar  },
+                    new Fila { tipo = FilaEnum.Decolar  }
+                }
+            };
+            var pista3 = new Pista
+            {
+                filas = new List<Fila>
+                {
+                    new Fila { tipo = FilaEnum.Aterrissar  },
+                    new Fila { tipo = FilaEnum.Decolar  }
+                }
+            };
 
-            Fila4 = new FilaParaPousar();
-            Fila4.ReferenteAPista = 2;
-
-            Fila5 = new FilaParaDecolar();
-            Fila5.ReferenteAPista = 1;
-
-            Fila6 = new FilaParaDecolar();
-            Fila6.ReferenteAPista = 2;
-
-            Fila7 = new FilaParaDecolar();
-            Fila7.ReferenteAPista = 3;
             #endregion
 
-            //GeraAvioesPouso(GeraQuantidadeDeAvioesAleatoria());
-
-            //GeraAvioesDecolagem(GeraQuantidadeDeAvioesAleatoria());
             Console.WriteLine("Inicializando aeroporto...");
             Thread.Sleep(100);
 
-            while (true)
+            int iteracao = 1;
+
+            while (iteracao <= numeroMaxIteracao)
             {
+                InsereAviao(pista1);
 
-                //var filaParaPousar = new FilaParaPousar();
-                //Console.WriteLine(filaParaPousar.SetarGasolinaAviao()); //TESTE
-
-                //chamar todas as funções aqui
-
-                GeraAvioes(GeraQuantidadeDeAvioesAleatoria());
-
-                
-
+                iteracao++;
             }
         }
 
-        ////if (!aviao.IsAviaoDecolando(aviao.Id_Aviao))
-        //private static List<Aviao> GeraAvioesPouso(int quantidade)
-        //{
-        //    for (int i = 0; i < quantidade; i++)
-        //    {
-        //        Aviao aviao = new Aviao();
-        //        aviao.NivelGasolina = aviao.GeraValorAleatorioParaGasolina();
-        //        //aviao.Id_Aviao = idAviao + 1;
-        //        //idAviao++;
-        //        //aviao.ReferenteAPista = ; //VER COMO VAI SER ESCOLHIDO ISSO
-        //    }
-        //}
-
-        //int idAviao = 0;
-
-        //private static List<Aviao> GeraAvioesDecolagem(int quantidade)
-        //{
-        //    for (int i = 0; i < quantidade; i++)
-        //    {
-        //        Aviao aviao = new Aviao();
-        //        aviao.NivelGasolina = null;
-        //        //aviao.Id_Aviao = idAviao + 1;
-        //        //idAviao++;
-        //        //aviao.ReferenteAPista = ; //VER COMO VAI SER ESCOLHIDO ISSO
-        //    }
-        //}
-
-
-        private static List<Aviao> GeraAvioes(int quantidade)
+        private static void InsereAviao(Pista pista)
         {
-            int idAviao = 1;
-            for (int i = 0; i >= GeraQuantidadeDeAvioesAleatoria(); i++)
+            var listaAvioes = new List<Aviao>();
+            listaAvioes.AddRange(GeraAvioes(FilaEnum.Decolar));
+            listaAvioes.AddRange(GeraAvioes(FilaEnum.Aterrissar));
+
+            var filaDecolar = pista.filas.Where(p => p.tipo == FilaEnum.Decolar).First();
+            var filaAterrissar = pista.filas.Where(p => p.tipo == FilaEnum.Aterrissar);
+
+            foreach (var aviao in listaAvioes)
+            {
+                if (aviao.IsAviaoDecolando)
+                    filaDecolar.Enfileira(aviao);
+                else
+                {
+     
+                }
+            }
+        }
+
+        private static List<Aviao> GeraAvioes(FilaEnum tipo)
+        {
+            var lista = new List<Aviao>();
+            int idAviao = tipo == FilaEnum.Aterrissar ? idMaximoAterrissagem : idMaximoDecolagem;
+            Random rnd = new Random();
+            int quantidadeAvioes = rnd.Next(4);
+
+            for (int i = 0; i < quantidadeAvioes; i++)
             {
                 Aviao aviao = new Aviao();
                 aviao.Id_Aviao = idAviao;
-                idAviao++;
-                if (!aviao.IsAviaoDecolando(aviao.Id_Aviao))
+                idAviao += 2;
+                if (!aviao.IsAviaoDecolando)
                     aviao.NivelGasolina = null;
                 else
                     aviao.GeraValorAleatorioParaGasolina(); //gera quantidade de gasolina
-                for (int j = 0; j >= 3; j++)
-                    aviao.ReferenteAPista = j; //VER COMO VAI SER ESCOLHIDO ISSO
+
+                lista.Add(aviao);
             }
-            //return GeraAvioes(); //ISSO MESMO?
-            //quantidade = GeraQuantidadeDeAvioesAleatoria();
-            //return quantidade;
 
-            return new List<Aviao>();
+            if (tipo == FilaEnum.Aterrissar)
+                idMaximoAterrissagem = idAviao;
+            else
+                idMaximoDecolagem = idAviao;
+
+            return lista;
         }
 
-
-        private static int GeraQuantidadeDeAvioesAleatoria()
-        {
-            Random rnd = new Random();
-            int quantidadeAvioes = rnd.Next(4);
-            return quantidadeAvioes;
-        }
 
         /// <summary>
         /// a) o conteúdo de cada fila;

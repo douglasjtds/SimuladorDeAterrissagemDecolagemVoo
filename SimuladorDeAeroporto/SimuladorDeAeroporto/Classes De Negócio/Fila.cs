@@ -1,4 +1,5 @@
-﻿using SimuladorDeAeroporto.Interfaces;
+﻿using SimuladorDeAeroporto.Domain;
+using SimuladorDeAeroporto.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace SimuladorDeAeroporto.Classes_De_Negócio
 {
-    public class FilaParaDecolar : IFila
+    public class Fila : IFila
     {
-        public int ReferenteAPista;
-
-        private class Celula
-        {
-            internal Object item;
-            internal Celula prox;
-        }
         private Celula frente;
         private Celula tras;
+        public FilaEnum tipo;
+
+        public Fila()
+        {
+            tras = new Celula();
+            frente = new Celula();
+        }
 
         #region [Métodos herdados da interface base]
         public void CriaFilaVazia()
@@ -51,5 +52,11 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
             return (frente == tras);
         }
         #endregion
+
+        private class Celula
+        {
+            internal Object item;
+            internal Celula prox;
+        }
     }
 }
