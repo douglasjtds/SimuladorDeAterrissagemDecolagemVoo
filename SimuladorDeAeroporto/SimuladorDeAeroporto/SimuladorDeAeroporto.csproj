@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes De Negócio\Aviao.cs" />
-    <Compile Include="Classes De Negócio\FilaParaDecolar.cs" />
+    <Compile Include="Classes De Negócio\Fila.cs" />
     <Compile Include="Classes De Negócio\FilaParaPousar.cs" />
     <Compile Include="Interfaces\IFila.cs" />
     <Compile Include="Program.cs" />

@@ -10,14 +10,14 @@ namespace SimuladorDeAeroporto
 {
     public class Program
     {
-        private static FilaParaPousar Fila1;
-        private static FilaParaPousar Fila2;
-        private static FilaParaPousar Fila3;
-        private static FilaParaPousar Fila4;
+        private static Fila Fila1;
+        private static Fila Fila2;
+        private static Fila Fila3;
+        private static Fila Fila4;
 
-        private static FilaParaDecolar Fila5;
-        private static FilaParaDecolar Fila6;
-        private static FilaParaDecolar Fila7;
+        private static Fila Fila5;
+        private static Fila Fila6;
+        private static Fila Fila7;
 
         static void Main(string[] args)
         {
@@ -25,25 +25,25 @@ namespace SimuladorDeAeroporto
             Thread.Sleep(1000);
 
             #region [instanciando as filas]
-            Fila1 = new FilaParaPousar();
+            Fila1 = new Fila();
             Fila1.ReferenteAPista = 1;
 
-            Fila2 = new FilaParaPousar();
+            Fila2 = new Fila();
             Fila2.ReferenteAPista = 1;
 
-            Fila3 = new FilaParaPousar();
+            Fila3 = new Fila();
             Fila3.ReferenteAPista = 2;
 
-            Fila4 = new FilaParaPousar();
+            Fila4 = new Fila();
             Fila4.ReferenteAPista = 2;
 
-            Fila5 = new FilaParaDecolar();
+            Fila5 = new Fila();
             Fila5.ReferenteAPista = 1;
 
-            Fila6 = new FilaParaDecolar();
+            Fila6 = new Fila();
             Fila6.ReferenteAPista = 2;
 
-            Fila7 = new FilaParaDecolar();
+            Fila7 = new Fila();
             Fila7.ReferenteAPista = 3;
             #endregion
 
