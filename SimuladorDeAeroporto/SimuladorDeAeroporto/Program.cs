@@ -50,6 +50,8 @@ namespace SimuladorDeAeroporto
             //GeraAvioesPouso(GeraQuantidadeDeAvioesAleatoria());
 
             //GeraAvioesDecolagem(GeraQuantidadeDeAvioesAleatoria());
+            Console.WriteLine("Inicializando aeroporto...");
+            Thread.Sleep(100);
 
             while (true)
             {
@@ -58,10 +60,11 @@ namespace SimuladorDeAeroporto
                 //Console.WriteLine(filaParaPousar.SetarGasolinaAviao()); //TESTE
 
                 //chamar todas as funções aqui
-                Console.WriteLine("Inicializando aeroporto...");
-                Thread.Sleep(100);
 
                 GeraAvioes(GeraQuantidadeDeAvioesAleatoria());
+
+                
+
             }
         }
 
@@ -93,7 +96,7 @@ namespace SimuladorDeAeroporto
         //}
 
 
-        public static List<Aviao> GeraAvioes(int quantidade)
+        private static List<Aviao> GeraAvioes(int quantidade)
         {
             int idAviao = 1;
             for (int i = 0; i >= GeraQuantidadeDeAvioesAleatoria(); i++)
@@ -103,20 +106,40 @@ namespace SimuladorDeAeroporto
                 idAviao++;
                 if (!aviao.IsAviaoDecolando(aviao.Id_Aviao))
                     aviao.NivelGasolina = null;
+                else
+                    aviao.GeraValorAleatorioParaGasolina(); //gera quantidade de gasolina
                 for (int j = 0; j >= 3; j++)
                     aviao.ReferenteAPista = j; //VER COMO VAI SER ESCOLHIDO ISSO
             }
             //return GeraAvioes(); //ISSO MESMO?
             //quantidade = GeraQuantidadeDeAvioesAleatoria();
             //return quantidade;
+
+            return new List<Aviao>();
         }
 
 
-        public static int GeraQuantidadeDeAvioesAleatoria()
+        private static int GeraQuantidadeDeAvioesAleatoria()
         {
             Random rnd = new Random();
             int quantidadeAvioes = rnd.Next(4);
             return quantidadeAvioes;
+        }
+
+        /// <summary>
+        /// a) o conteúdo de cada fila;
+        /// b) o tempo médio de espera para decolagem;
+        /// c) o tempo médio de espera para aterrissagem; e
+        /// d) o número de aviões que aterrissaram sem reserva de combustível.
+        /// </summary>
+        private static void ImprimirPeriodicamente()
+        {
+
+        }
+
+        private static void PousarAviao(Aviao Aviao)
+        {
+
         }
     }
 }
