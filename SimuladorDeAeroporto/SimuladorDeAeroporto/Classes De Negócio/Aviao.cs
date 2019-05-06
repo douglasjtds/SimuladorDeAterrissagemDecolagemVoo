@@ -21,13 +21,20 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
         public bool IsAviaoDecolando {
             get {
                 if (this.Id_Aviao % 2 == 0)
+                {
+                    NivelGasolina = null;
                     return true;
-                return false;
+                }
+                else
+                {
+                    NivelGasolina = GeraValorAleatorioParaGasolina();
+                    return false;
+                }
             }
             private set {; }
         }
 
-        public int GeraValorAleatorioParaGasolina()
+        private int GeraValorAleatorioParaGasolina()
         {
             Random rnd = new Random();
             int valorCombustivel = rnd.Next(21);

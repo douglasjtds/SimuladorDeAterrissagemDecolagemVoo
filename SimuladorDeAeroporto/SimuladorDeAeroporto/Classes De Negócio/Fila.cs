@@ -16,24 +16,19 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
 
         public Fila()
         {
-            tras = new Celula();
-            frente = new Celula();
-        }
-
-        #region [Métodos herdados da interface base]
-        public void CriaFilaVazia()
-        {
             frente = new Celula();
             tras = frente;
             frente.prox = null;
         }
 
+        #region [Métodos herdados da interface base]
+
         public void Enfileira(object x)
         {
-            tras.prox = new Celula();
-            tras = tras.prox;
-            tras.item = x;
-            tras.prox = null;
+            this.tras.prox = new Celula();
+            this.tras = this.tras.prox;
+            this.tras.item = x;
+            this.tras.prox = null;
         }
 
         public Object Desenfileira()

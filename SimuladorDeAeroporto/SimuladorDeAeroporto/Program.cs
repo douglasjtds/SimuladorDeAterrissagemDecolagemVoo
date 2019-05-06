@@ -56,10 +56,10 @@ namespace SimuladorDeAeroporto
 
             int iteracao = 1;
 
+
             while (iteracao <= numeroMaxIteracao)
             {
                 InsereAviao(pista1);
-
                 iteracao++;
             }
         }
@@ -96,11 +96,6 @@ namespace SimuladorDeAeroporto
                 Aviao aviao = new Aviao();
                 aviao.Id_Aviao = idAviao;
                 idAviao += 2;
-                if (!aviao.IsAviaoDecolando)
-                    aviao.NivelGasolina = null;
-                else
-                    aviao.GeraValorAleatorioParaGasolina(); //gera quantidade de gasolina
-
                 lista.Add(aviao);
             }
 

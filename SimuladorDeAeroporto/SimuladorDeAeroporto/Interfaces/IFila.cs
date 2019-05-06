@@ -8,7 +8,7 @@ namespace SimuladorDeAeroporto.Interfaces
 {
     public interface IFila
     {
-        void CriaFilaVazia();
+        //void CriaFilaVazia();
 
         void Enfileira(Object x);
 
