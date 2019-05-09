@@ -24,6 +24,9 @@ namespace SimuladorDeAeroporto
         private static int avioesCaidosPista2 = 0;
         private static int avioesCaidosPista3 = 0;
         private static bool pousoEmergencialNaInteracao = false;
+        private static bool aviaoDecolouPista1 = false;
+        private static bool aviaoDecolouPista2 = false;
+        private static bool aviaoDecolouPista3 = false;
 
         static void Main(string[] args)
         {
@@ -60,6 +63,87 @@ namespace SimuladorDeAeroporto
         {
             VarificarAvioesCaidos(pista, identificaoPista);
             RealizarPousoUrgencia(pista);
+            ProcessarIteracao(pista, identificaoPista);
+            //ExibirLog();
+
+        }
+
+        private static void ProcessarIteracao(Pista pista, PistaEnum identificaoPista)
+        {
+            switch (identificaoPista)
+            {
+                case PistaEnum.Pista1:
+                    if (!aviaoDecolouPista1)
+                    {
+                        RemoverAviaoFila(pista.Decolar);
+                        avioesDecoladosPista1 += 1;
+                        aviaoDecolouPista1 = true;
+                    }
+                    else
+                    {
+                        if (pista.Aterrissar1.Count > pista.Aterrissar2.Count)
+                        {
+                            RemoverAviaoFila(pista.Aterrissar1);
+                            avioesPousadosPista1 += 1;
+                        }
+                        else
+                        {
+                            RemoverAviaoFila(pista.Aterrissar2);
+                            avioesPousadosPista1 += 1;
+                        }
+
+                        aviaoDecolouPista1 = false;
+                    }
+                    break;
+                case PistaEnum.Pista2:
+                    if (!aviaoDecolouPista2)
+                    {
+                        RemoverAviaoFila(pista.Decolar);
+                        avioesDecoladosPista2 += 1;
+                        aviaoDecolouPista2 = true;
+                    }
+                    else
+                    {
+                        if (pista.Aterrissar1.Count > pista.Aterrissar2.Count)
+                        {
+                            RemoverAviaoFila(pista.Aterrissar1);
+                            avioesPousadosPista2 += 1;
+                        }
+                        else
+                        {
+                            RemoverAviaoFila(pista.Aterrissar2);
+                            avioesPousadosPista2 += 1;
+                        }
+
+                        aviaoDecolouPista2 = false;
+                    }
+                    break;
+                case PistaEnum.Pista3:
+                    if (!aviaoDecolouPista3)
+                    {
+                        RemoverAviaoFila(pista.Decolar);
+                        avioesDecoladosPista3 += 1;
+                        aviaoDecolouPista3 = true;
+                    }
+                    else
+                    {
+                        if (pista.Aterrissar1.Count > pista.Aterrissar2.Count)
+                        {
+                            RemoverAviaoFila(pista.Aterrissar1);
+                            avioesPousadosPista3 += 1;
+                        }
+                        else
+                        {
+                            RemoverAviaoFila(pista.Aterrissar2);
+                            avioesPousadosPista3 += 1;
+                        }
+
+                        aviaoDecolouPista3 = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         private static void RealizarPousoUrgencia(Pista pista)
