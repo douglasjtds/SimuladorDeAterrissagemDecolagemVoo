@@ -22,32 +22,6 @@ namespace SimuladorDeAeroporto
             #region [instanciando as filas]
 
 
-            var pista1 = new Pista
-            {
-                filas = new List<Fila>
-                {
-                    new Fila { tipo = FilaEnum.Aterrissar },
-                    new Fila { tipo = FilaEnum.Aterrissar  },
-                    new Fila { tipo = FilaEnum.Decolar  }
-                }
-            };
-            var pista2 = new Pista
-            {
-                filas = new List<Fila>
-                {
-                    new Fila { tipo = FilaEnum.Aterrissar },
-                    new Fila { tipo = FilaEnum.Aterrissar  },
-                    new Fila { tipo = FilaEnum.Decolar  }
-                }
-            };
-            var pista3 = new Pista
-            {
-                filas = new List<Fila>
-                {
-                    new Fila { tipo = FilaEnum.Aterrissar  },
-                    new Fila { tipo = FilaEnum.Decolar  }
-                }
-            };
 
             #endregion
 
@@ -59,7 +33,7 @@ namespace SimuladorDeAeroporto
 
             while (iteracao <= numeroMaxIteracao)
             {
-                InsereAviao(pista1);
+                //InsereAviao(pista1);
                 iteracao++;
             }
         }
@@ -70,16 +44,17 @@ namespace SimuladorDeAeroporto
             listaAvioes.AddRange(GeraAvioes(FilaEnum.Decolar));
             listaAvioes.AddRange(GeraAvioes(FilaEnum.Aterrissar));
 
-            var filaDecolar = pista.filas.Where(p => p.tipo == FilaEnum.Decolar).First();
-            var filaAterrissar = pista.filas.Where(p => p.tipo == FilaEnum.Aterrissar);
 
             foreach (var aviao in listaAvioes)
             {
                 if (aviao.IsAviaoDecolando)
-                    filaDecolar.Enfileira(aviao);
+                {
+
+                }
+                //filaDecolar.Enfileira(aviao);
                 else
                 {
-     
+
                 }
             }
         }
