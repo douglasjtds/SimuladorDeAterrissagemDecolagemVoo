@@ -9,6 +9,6 @@ namespace SimuladorDeAeroporto.Domain
     public enum FilaEnum
     {
         Decolar = 1,
-        Aterrissar = 2
+        Pousar = 2
     }
 }

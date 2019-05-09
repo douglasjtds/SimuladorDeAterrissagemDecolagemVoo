@@ -20,49 +20,44 @@ namespace SimuladorDeAeroporto
             Console.WriteLine("----- [Simulador de Aeroporto] -----");
             Thread.Sleep(1000);
             #region [instanciando as filas]
-
-
-
             #endregion
 
             Console.WriteLine("Inicializando aeroporto...");
             Thread.Sleep(100);
 
             int iteracao = 1;
-
+            var pista1 = new Pista();
+            var pista2 = new Pista();
+            var pista3 = new Pista();
 
             while (iteracao <= numeroMaxIteracao)
             {
-                //InsereAviao(pista1);
+                InsereAviao(pista1);
+                InsereAviao(pista2);
+                InsereAviao(pista3);
+
                 iteracao++;
             }
         }
 
         private static void InsereAviao(Pista pista)
         {
-            var listaAvioes = new List<Aviao>();
-            listaAvioes.AddRange(GeraAvioes(FilaEnum.Decolar));
-            listaAvioes.AddRange(GeraAvioes(FilaEnum.Aterrissar));
 
-
-            foreach (var aviao in listaAvioes)
+            foreach (var aviao in GeraAvioes(FilaEnum.Decolar))
             {
-                if (aviao.IsAviaoDecolando)
-                {
+                pista.Decolar.Enfileira(aviao);
+            }
 
-                }
-                //filaDecolar.Enfileira(aviao);
-                else
-                {
-
-                }
+            foreach (var aviao in GeraAvioes(FilaEnum.Pousar))
+            {
+                
             }
         }
 
         private static List<Aviao> GeraAvioes(FilaEnum tipo)
         {
             var lista = new List<Aviao>();
-            int idAviao = tipo == FilaEnum.Aterrissar ? idMaximoAterrissagem : idMaximoDecolagem;
+            int idAviao = tipo == FilaEnum.Pousar ? idMaximoAterrissagem : idMaximoDecolagem;
             Random rnd = new Random();
             int quantidadeAvioes = rnd.Next(4);
 
@@ -74,7 +69,7 @@ namespace SimuladorDeAeroporto
                 lista.Add(aviao);
             }
 
-            if (tipo == FilaEnum.Aterrissar)
+            if (tipo == FilaEnum.Pousar)
                 idMaximoAterrissagem = idAviao;
             else
                 idMaximoDecolagem = idAviao;
