@@ -121,7 +121,7 @@ namespace SimuladorDeAeroporto
             }
         }
 
-        private static void InsereAviao(Pista pista, bool gerarAvioesPousar = true)
+        private static void InsereAviao(Pista pista, bool gerarAvioesFilaDePouso = true)
         {
 
             foreach (var aviao in GeraAvioes(FilaEnum.Decolar))
@@ -129,7 +129,7 @@ namespace SimuladorDeAeroporto
                 pista.Decolar.Enqueue(aviao);
             }
 
-            if (gerarAvioesPousar)
+            if (gerarAvioesFilaDePouso)
             {
                 foreach (var aviao in GeraAvioes(FilaEnum.Pousar))
                 {
