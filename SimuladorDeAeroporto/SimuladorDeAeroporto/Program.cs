@@ -25,7 +25,6 @@ namespace SimuladorDeAeroporto
         private static bool pousoEmergencialNaInteracao = false;
         private static bool aviaoDecolouPista1 = false;
         private static bool aviaoDecolouPista2 = false;
-        private static bool aviaoDecolouPista3 = false;
 
         static void Main(string[] args)
         {
