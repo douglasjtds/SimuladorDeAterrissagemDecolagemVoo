@@ -40,6 +40,5 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
             int valorCombustivel = rnd.Next(21);
             return valorCombustivel;
         }
-
     }
 }

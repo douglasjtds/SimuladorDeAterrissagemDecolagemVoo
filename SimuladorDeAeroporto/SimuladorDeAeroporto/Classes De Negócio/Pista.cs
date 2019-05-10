@@ -11,12 +11,12 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
         public Pista()
         {
             Decolar = new Queue<Aviao>();
-            Aterrissar1 = new Queue<Aviao>();
-            Aterrissar2 = new Queue<Aviao>();
+            Pousar1 = new Queue<Aviao>();
+            Pousar2 = new Queue<Aviao>();
         }
 
         public Queue<Aviao> Decolar { get; set; }
-        public Queue<Aviao> Aterrissar1 { get; set; }
-        public Queue<Aviao> Aterrissar2 { get; set; }
+        public Queue<Aviao> Pousar1 { get; set; }
+        public Queue<Aviao> Pousar2 { get; set; }
     }
 }
