@@ -137,7 +137,6 @@ namespace SimuladorDeAeroporto
                     {
                         RemoverAviaoFila(pista.Decolar);
                         avioesDecoladosPista3 += 1;
-                        aviaoDecolouPista3 = true;
                     }
                     break;
                 default:
