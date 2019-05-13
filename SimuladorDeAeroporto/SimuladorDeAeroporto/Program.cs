@@ -11,6 +11,7 @@ namespace SimuladorDeAeroporto
 {
     public class Program
     {
+        #region [variáveis globais]
         private static int numeroMaxIteracao = 10000;
         private static int idMaximoAterrissagem = 1;
         private static int idMaximoDecolagem = 2;
@@ -24,22 +25,24 @@ namespace SimuladorDeAeroporto
         private static int avioesCaidosPista2 = 0;
         private static bool pousoEmergencialNaInteracao = false;
         private static bool aviaoDecolouPista1 = false;
-        private static bool aviaoDecolouPista2 = false;
+        private static bool aviaoDecolouPista2 = false; 
+        #endregion
 
         static void Main(string[] args)
         {
             Console.WriteLine("----- [Simulador de Aeroporto] -----");
             Thread.Sleep(1000);
-            #region [instanciando as filas]
+
+            int iteracao = 1;
+
+            #region [instanciando as pistas]
+            var pista1 = new Pista();
+            var pista2 = new Pista();
+            var pista3 = new Pista();
             #endregion
 
             Console.WriteLine("Inicializando aeroporto...");
             Thread.Sleep(100);
-
-            int iteracao = 1;
-            var pista1 = new Pista();
-            var pista2 = new Pista();
-            var pista3 = new Pista();
 
             while (iteracao <= numeroMaxIteracao)
             {
@@ -61,14 +64,13 @@ namespace SimuladorDeAeroporto
         {
             ProcessarIteracao(pista, identificaoPista);
             //ExibirLog();
-
         }
 
         private static void ProcessarIteracao(Pista pista, PistaEnum identificaoPista)
         {
             VerificarAvioesCaidos(pista, identificaoPista);
             RealizarPousoDeEmergencia(pista);
-            var realizouPousoEmergencialPistaAtual = RealizarPousoEmergencialPistaAtual(pista);
+            var realizouPousoEmergencialPistaAtual = RealizarPousoEmergencialPistaAtual(pista); //não deveria chamar isso só se gasolina = 1?
 
             switch (identificaoPista)
             {
@@ -76,9 +78,7 @@ namespace SimuladorDeAeroporto
                     if (!aviaoDecolouPista1)
                     {
                         if (realizouPousoEmergencialPistaAtual)
-                        {
                             avioesPousadosPista1 += 1;
-                        }
                         else
                         {
                             RemoverAviaoFila(pista.Decolar);
@@ -225,7 +225,6 @@ namespace SimuladorDeAeroporto
 
         private static void InsereAviao(Pista pista, bool gerarAvioesFilaDePouso = true)
         {
-
             foreach (var aviao in GeraAvioes(FilaEnum.Decolar))
             {
                 pista.Decolar.Enqueue(aviao);
@@ -266,7 +265,7 @@ namespace SimuladorDeAeroporto
         private static List<Aviao> GeraAvioes(FilaEnum tipo)
         {
             var lista = new List<Aviao>();
-            int idAviao = tipo == FilaEnum.Pousar ? idMaximoAterrissagem : idMaximoDecolagem;
+            int idAviao = tipo == FilaEnum.Pousar ? idMaximoAterrissagem : idMaximoDecolagem; //NÃO ENTENDI ESSA PARTE, o idAviao não tinha que começar de 1?
             Random rnd = new Random();
             int quantidadeAvioes = rnd.Next(4);
 
