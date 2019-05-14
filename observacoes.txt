@@ -1,11 +1,12 @@
-- linha 268 classe Program
-- quando chama GerarAviao, como ele verifica se é para pousar ou decolar?
+- linha 268 classe Program  -
+- quando chama GerarAviao, como ele verifica se é para pousar ou decolar? -
 
-- linha 228 classe Program: porque que quando chama o GeraAvioes já passa com enum de decolar?
+- linha 228 classe Program: porque que quando chama o GeraAvioes já passa com enum de decolar? -
 
-- quando que gera a gasolina aleatoria?
+- quando que gera a gasolina aleatoria? -
 
 - adicionar private int Id_Pista; para poder achar depois de qual pista está o avião que caiu (não vai precisar por causa do PistaEnum que é passado no método de VerificarAvioesCaidos)
+	-- 
 
 - como é a incrementação de idAviao?
 

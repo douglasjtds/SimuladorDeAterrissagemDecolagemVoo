@@ -21,11 +21,10 @@ namespace SimuladorDeAeroporto
         private static int avioesPousadosPista1 = 0;
         private static int avioesPousadosPista2 = 0;
         private static int avioesPousadosPista3 = 0;
-        private static int avioesCaidosPista1 = 0;
-        private static int avioesCaidosPista2 = 0;
         private static bool pousoEmergencialNaInteracao = false;
         private static bool aviaoDecolouPista1 = false;
-        private static bool aviaoDecolouPista2 = false; 
+        private static bool aviaoDecolouPista2 = false;
+        private static List<Tuple<int, int>> avioesCaidos = new List<Tuple<int, int>>();
         #endregion
 
         static void Main(string[] args)
@@ -36,9 +35,9 @@ namespace SimuladorDeAeroporto
             int iteracao = 1;
 
             #region [instanciando as pistas]
-            var pista1 = new Pista();
-            var pista2 = new Pista();
-            var pista3 = new Pista();
+            var pista1 = new Pista(1);
+            var pista2 = new Pista(2);
+            var pista3 = new Pista(3);
             #endregion
 
             Console.WriteLine("Inicializando aeroporto...");
@@ -193,33 +192,21 @@ namespace SimuladorDeAeroporto
         private static void VerificarAvioesCaidos(Pista pista, PistaEnum identificaoPista)
         {
             var _avioesCaidosAterrissar1 = new List<Aviao>();
-            _avioesCaidosAterrissar1 = pista.Pousar1.Where(p => p.NivelGasolina.Value == 0).ToList();
+            _avioesCaidosAterrissar1 = pista.Pousar1.Where(p => p.NivelGasolina.HasValue && p.NivelGasolina.Value < 1).ToList();
 
             var _avioesCaidosAterrissar2 = new List<Aviao>();
-            _avioesCaidosAterrissar2 = pista.Pousar2.Where(p => p.NivelGasolina.Value == 0).ToList();
+            _avioesCaidosAterrissar2 = pista.Pousar2.Where(p => p.NivelGasolina.HasValue && p.NivelGasolina.Value < 1).ToList();
 
             foreach (var aviao in _avioesCaidosAterrissar1)
             {
+                avioesCaidos.Add(new Tuple<int, int>(aviao.Id_Aviao, pista.Id_Pista));
                 RemoverAviaoFila(pista.Pousar1, aviao);
             }
 
             foreach (var aviao in _avioesCaidosAterrissar2)
             {
+                avioesCaidos.Add(new Tuple<int, int>(aviao.Id_Aviao, pista.Id_Pista));
                 RemoverAviaoFila(pista.Pousar2, aviao);
-            }
-
-            switch (identificaoPista)
-            {
-                case PistaEnum.Pista1:
-                    avioesCaidosPista1 += _avioesCaidosAterrissar1.Count;
-                    avioesCaidosPista1 += _avioesCaidosAterrissar2.Count;
-                    break;
-                case PistaEnum.Pista2:
-                    avioesCaidosPista2 += _avioesCaidosAterrissar1.Count;
-                    avioesCaidosPista2 += _avioesCaidosAterrissar2.Count;
-                    break;
-                default:
-                    break;
             }
         }
 
@@ -265,7 +252,7 @@ namespace SimuladorDeAeroporto
         private static List<Aviao> GeraAvioes(FilaEnum tipo)
         {
             var lista = new List<Aviao>();
-            int idAviao = tipo == FilaEnum.Pousar ? idMaximoAterrissagem : idMaximoDecolagem; //NÃO ENTENDI ESSA PARTE, o idAviao não tinha que começar de 1?
+            int idAviao = tipo == FilaEnum.Pousar ? idMaximoAterrissagem : idMaximoDecolagem;
             Random rnd = new Random();
             int quantidadeAvioes = rnd.Next(4);
 
