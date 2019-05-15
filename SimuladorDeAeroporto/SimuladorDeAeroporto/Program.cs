@@ -15,16 +15,16 @@ namespace SimuladorDeAeroporto
         private static int numeroMaxIteracao = 10000;
         private static int idMaximoAterrissagem = 1;
         private static int idMaximoDecolagem = 2;
-        private static int avioesDecoladosPista1 = 0;
-        private static int avioesDecoladosPista2 = 0;
-        private static int avioesDecoladosPista3 = 0;
-        private static int avioesPousadosPista1 = 0;
-        private static int avioesPousadosPista2 = 0;
-        private static int avioesPousadosPista3 = 0;
-        private static bool pousoEmergencialNaInteracao = false;
+        private static bool pousoEmergencialPista3NaInteracao = false;
         private static bool aviaoDecolouPista1 = false;
         private static bool aviaoDecolouPista2 = false;
         private static List<Tuple<int, int>> avioesCaidos = new List<Tuple<int, int>>();
+        private static List<Tuple<int, int>> avioesDecolados = new List<Tuple<int, int>>();
+        private static List<Tuple<int, int>> avioesPousados = new List<Tuple<int, int>>();
+
+        private const int idPista1 = 1;
+        private const int idPista2 = 2;
+        private const int idPista3 = 3;
         #endregion
 
         static void Main(string[] args)
@@ -35,9 +35,9 @@ namespace SimuladorDeAeroporto
             int iteracao = 1;
 
             #region [instanciando as pistas]
-            var pista1 = new Pista(1);
-            var pista2 = new Pista(2);
-            var pista3 = new Pista(3);
+            var pista1 = new Pista(idPista1);
+            var pista2 = new Pista(idPista2);
+            var pista3 = new Pista(idPista3);
             #endregion
 
             Console.WriteLine("Inicializando aeroporto...");
@@ -45,96 +45,98 @@ namespace SimuladorDeAeroporto
 
             while (iteracao <= numeroMaxIteracao)
             {
-                pousoEmergencialNaInteracao = false;
+                pousoEmergencialPista3NaInteracao = false;
 
                 InsereAviao(pista1);
                 InsereAviao(pista2);
                 InsereAviao(pista3, false);
 
-                PousarDecolarAvioes(pista1, PistaEnum.Pista1);
-                PousarDecolarAvioes(pista2, PistaEnum.Pista2);
-                PousarDecolarAvioes(pista3, PistaEnum.Pista3);
+                ProcessarIteracao(pista1);
+                ProcessarIteracao(pista2);
+                ProcessarIteracao(pista3);
+
+                BaixarNivelGasolina(pista1);
+                BaixarNivelGasolina(pista2);
+                BaixarNivelGasolina(pista3);
 
                 iteracao++;
             }
+
+            var log = avioesDecolados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
+
         }
 
-        private static void PousarDecolarAvioes(Pista pista, PistaEnum identificaoPista)
+        private static void BaixarNivelGasolina(Pista pista)
         {
-            ProcessarIteracao(pista, identificaoPista);
-            //ExibirLog();
-        }
-
-        private static void ProcessarIteracao(Pista pista, PistaEnum identificaoPista)
-        {
-            VerificarAvioesCaidos(pista, identificaoPista);
-            RealizarPousoDeEmergencia(pista);
-            var realizouPousoEmergencialPistaAtual = RealizarPousoEmergencialPistaAtual(pista); //não deveria chamar isso só se gasolina = 1?
-
-            switch (identificaoPista)
+            foreach (var aviao in pista.Pousar1)
             {
-                case PistaEnum.Pista1:
-                    if (!aviaoDecolouPista1)
+                aviao.NivelGasolina -= 1;
+            }
+
+            foreach (var aviao in pista.Pousar2)
+            {
+                aviao.NivelGasolina -= 1;
+            }
+        }
+
+        private static void ProcessarIteracao(Pista pista)
+        {
+            VerificarAvioesCaidos(pista);
+            RealizarPousoDeEmergenciaPista3(pista);
+            var realizouPousoEmergencialPistaAtual = RealizarPousoEmergencialPistaAtual(pista);
+
+            switch (pista.Id_Pista)
+            {
+                case idPista1:
+                    if (!realizouPousoEmergencialPistaAtual)
                     {
-                        if (realizouPousoEmergencialPistaAtual)
-                            avioesPousadosPista1 += 1;
-                        else
+                        if (!aviaoDecolouPista1)
                         {
-                            RemoverAviaoFila(pista.Decolar);
-                            avioesDecoladosPista1 += 1;
+                            RemoverAviaoFila(pista.Decolar, pista.Id_Pista, FilaEnum.Decolar);
                             aviaoDecolouPista1 = true;
                         }
-                    }
-                    else
-                    {
-                        if (pista.Pousar1.Count > pista.Pousar2.Count)
-                        {
-                            RemoverAviaoFila(pista.Pousar1);
-                            avioesPousadosPista1 += 1;
-                        }
                         else
                         {
-                            RemoverAviaoFila(pista.Pousar2);
-                            avioesPousadosPista1 += 1;
-                        }
+                            if (pista.Pousar1.Count > pista.Pousar2.Count)
+                            {
+                                RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar);
+                            }
+                            else
+                            {
+                                RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar);
+                            }
 
-                        aviaoDecolouPista1 = false;
+                            aviaoDecolouPista1 = false;
+                        }
                     }
                     break;
-                case PistaEnum.Pista2:
-                    if (!aviaoDecolouPista2)
+                case idPista2:
+                    if (!realizouPousoEmergencialPistaAtual)
                     {
-                        if (realizouPousoEmergencialPistaAtual)
-                            avioesPousadosPista2 += 1;
-
-                        else
+                        if (!aviaoDecolouPista2)
                         {
-                            RemoverAviaoFila(pista.Decolar);
-                            avioesDecoladosPista2 += 1;
+                            RemoverAviaoFila(pista.Decolar, pista.Id_Pista, FilaEnum.Decolar);
                             aviaoDecolouPista2 = true;
                         }
-                    }
-                    else
-                    {
-                        if (pista.Pousar1.Count > pista.Pousar2.Count)
-                        {
-                            RemoverAviaoFila(pista.Pousar1);
-                            avioesPousadosPista2 += 1;
-                        }
                         else
                         {
-                            RemoverAviaoFila(pista.Pousar2);
-                            avioesPousadosPista2 += 1;
-                        }
+                            if (pista.Pousar1.Count > pista.Pousar2.Count)
+                            {
+                                RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar);
+                            }
+                            else
+                            {
+                                RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar);
+                            }
 
-                        aviaoDecolouPista2 = false;
+                            aviaoDecolouPista2 = false;
+                        }
                     }
                     break;
-                case PistaEnum.Pista3:
-                    if (!pousoEmergencialNaInteracao)
+                case idPista3:
+                    if (!pousoEmergencialPista3NaInteracao)
                     {
-                        RemoverAviaoFila(pista.Decolar);
-                        avioesDecoladosPista3 += 1;
+                        RemoverAviaoFila(pista.Decolar, pista.Id_Pista, FilaEnum.Decolar);
                     }
                     break;
                 default:
@@ -144,52 +146,62 @@ namespace SimuladorDeAeroporto
 
         private static bool RealizarPousoEmergencialPistaAtual(Pista pista)
         {
-            var pousoEmergencialPistaAtual = new Aviao();
-            var isFila1 = true;
+            if (pousoEmergencialPista3NaInteracao)
+            {
+                var aviaoSemGasolina = new Aviao();
 
-            pousoEmergencialPistaAtual = pista.Pousar1.FirstOrDefault(p => p.NivelGasolina == 1);
-            if (pousoEmergencialPistaAtual == null)
-            {
-                pousoEmergencialPistaAtual = pista.Pousar2.FirstOrDefault(p => p.NivelGasolina == 1);
-                isFila1 = false;
-            }
-            if (pousoEmergencialNaInteracao && pousoEmergencialPistaAtual != null)
-            {
-                if (isFila1)
-                    RemoverAviaoFila(pista.Pousar1, pousoEmergencialPistaAtual);
+                aviaoSemGasolina = pista.Pousar1.FirstOrDefault(p => p.NivelGasolina == 1);
+
+                if (aviaoSemGasolina != null)
+                {
+                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar, aviaoSemGasolina);
+                    return true;
+                }
                 else
-                    RemoverAviaoFila(pista.Pousar2, pousoEmergencialPistaAtual);
+                {
+                    aviaoSemGasolina = pista.Pousar2.FirstOrDefault(p => p.NivelGasolina == 1);
 
-                return true;
+                    if (aviaoSemGasolina != null)
+                    {
+                        RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar, aviaoSemGasolina);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }
             else
+            {
                 return false;
-
+            }
         }
 
-        private static void RealizarPousoDeEmergencia(Pista pista)
+        private static void RealizarPousoDeEmergenciaPista3(Pista pista)
         {
-            var pousoDeEmergencia = pista.Pousar1.FirstOrDefault(p => p.NivelGasolina.Value == 1);
+            var aviaoSemGasolina = new Aviao();
 
-            if (!pousoEmergencialNaInteracao && pousoDeEmergencia != null)
+            aviaoSemGasolina = pista.Pousar1.FirstOrDefault(p => p.NivelGasolina.HasValue && p.NivelGasolina.Value == 1);
+
+            if (!pousoEmergencialPista3NaInteracao && aviaoSemGasolina != null)
             {
-                RemoverAviaoFila(pista.Pousar1, pousoDeEmergencia);
-                avioesPousadosPista3 += 1;
-                pousoEmergencialNaInteracao = true;
+                RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar, aviaoSemGasolina);
+                pousoEmergencialPista3NaInteracao = true;
             }
-            else if (!pousoEmergencialNaInteracao && pousoDeEmergencia == null)
+            else if (!pousoEmergencialPista3NaInteracao && aviaoSemGasolina == null)
             {
-                pousoDeEmergencia = pista.Pousar2.FirstOrDefault(p => p.NivelGasolina.Value == 1);
-                if (pousoDeEmergencia != null)
+                aviaoSemGasolina = pista.Pousar2.FirstOrDefault(p => p.NivelGasolina.HasValue && p.NivelGasolina.Value == 1);
+
+                if (aviaoSemGasolina != null)
                 {
-                    RemoverAviaoFila(pista.Pousar2, pousoDeEmergencia);
-                    avioesPousadosPista3 += 1;
-                    pousoEmergencialNaInteracao = true;
+                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar, aviaoSemGasolina);
+                    pousoEmergencialPista3NaInteracao = true;
                 }
             }
         }
 
-        private static void VerificarAvioesCaidos(Pista pista, PistaEnum identificaoPista)
+        private static void VerificarAvioesCaidos(Pista pista)
         {
             var _avioesCaidosAterrissar1 = new List<Aviao>();
             _avioesCaidosAterrissar1 = pista.Pousar1.Where(p => p.NivelGasolina.HasValue && p.NivelGasolina.Value < 1).ToList();
@@ -200,13 +212,13 @@ namespace SimuladorDeAeroporto
             foreach (var aviao in _avioesCaidosAterrissar1)
             {
                 avioesCaidos.Add(new Tuple<int, int>(aviao.Id_Aviao, pista.Id_Pista));
-                RemoverAviaoFila(pista.Pousar1, aviao);
+                RemoverAviaoCaidoFila(pista.Pousar1, aviao);
             }
 
             foreach (var aviao in _avioesCaidosAterrissar2)
             {
                 avioesCaidos.Add(new Tuple<int, int>(aviao.Id_Aviao, pista.Id_Pista));
-                RemoverAviaoFila(pista.Pousar2, aviao);
+                RemoverAviaoCaidoFila(pista.Pousar2, aviao);
             }
         }
 
@@ -230,23 +242,61 @@ namespace SimuladorDeAeroporto
             }
         }
 
-        private static void RemoverAviaoFila(Queue<Aviao> fila, Aviao aviao = null)
+        private static void RemoverAviaoFila(Queue<Aviao> fila, int idPista, FilaEnum tipoFila, Aviao aviao = null)
         {
-            if (aviao == null)
-                fila.Dequeue();
-            else
+            if (fila.Any())
             {
-                var queue_aux = new Queue<Aviao>();
+                var aviaoAux = aviao != null ? aviao : fila.First();
 
-                foreach (var item in fila)
+                if (aviao == null)
                 {
-                    if (item.Id_Aviao != aviao.Id_Aviao)
-                        queue_aux.Enqueue(aviao);
+                    fila.Dequeue();
+                }
+                else
+                {
+                    var queue_aux = new Queue<Aviao>();
+
+                    foreach (var item in fila)
+                    {
+                        if (item.Id_Aviao != aviao.Id_Aviao)
+                            queue_aux.Enqueue(aviao);
+                    }
+
+                    fila.Clear();
+                    fila = queue_aux;
                 }
 
-                fila.Clear();
-                fila = queue_aux;
+                RemoverAviaoFila(idPista, tipoFila, aviaoAux);
             }
+        }
+
+        private static void RemoverAviaoFila(int idPista, FilaEnum tipoFila, Aviao aviaoAux)
+        {
+            switch (tipoFila)
+            {
+                case FilaEnum.Decolar:
+                    avioesDecolados.Add(new Tuple<int, int>(aviaoAux.Id_Aviao, idPista));
+                    break;
+                case FilaEnum.Pousar:
+                    avioesPousados.Add(new Tuple<int, int>(aviaoAux.Id_Aviao, idPista));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static void RemoverAviaoCaidoFila(Queue<Aviao> fila, Aviao aviao)
+        {
+            var queue_aux = new Queue<Aviao>();
+
+            foreach (var item in fila)
+            {
+                if (item.Id_Aviao != aviao.Id_Aviao)
+                    queue_aux.Enqueue(aviao);
+            }
+
+            fila.Clear();
+            fila = queue_aux;
         }
 
         private static List<Aviao> GeraAvioes(FilaEnum tipo)
