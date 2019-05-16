@@ -371,11 +371,5 @@ namespace SimuladorDeAeroporto
 
             return lista;
         }
-
-
-        private static void PousarAviao(Aviao Aviao)
-        {
-
-        }
     }
 }
