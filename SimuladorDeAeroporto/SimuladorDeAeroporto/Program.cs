@@ -18,13 +18,15 @@ namespace SimuladorDeAeroporto
         private static bool pousoEmergencialPista3NaInteracao = false;
         private static bool aviaoDecolouPista1 = false;
         private static bool aviaoDecolouPista2 = false;
-        private static List<Tuple<int, int>> avioesCaidos = new List<Tuple<int, int>>();
-        private static List<Tuple<int, int>> avioesDecolados = new List<Tuple<int, int>>();
-        private static List<Tuple<int, int>> avioesPousados = new List<Tuple<int, int>>();
+        private static List<Tuple<int, int, int?>> avioesCaidos = new List<Tuple<int, int, int?>>();
+        private static List<Tuple<int, int, int?>> avioesDecolados = new List<Tuple<int, int, int?>>();
+        private static List<Tuple<int, int, int?>> avioesPousados = new List<Tuple<int, int, int?>>();
 
         private const int idPista1 = 1;
         private const int idPista2 = 2;
         private const int idPista3 = 3;
+
+        private static int iteracaoInicial = 1;
         #endregion
 
         static void Main(string[] args)
@@ -32,7 +34,6 @@ namespace SimuladorDeAeroporto
             Console.WriteLine("----- [Simulador de Aeroporto] -----");
             Thread.Sleep(1000);
 
-            int iteracao = 1;
 
             #region [instanciando as pistas]
             var pista1 = new Pista(idPista1);
@@ -43,7 +44,7 @@ namespace SimuladorDeAeroporto
             Console.WriteLine("Inicializando aeroporto...");
             Thread.Sleep(100);
 
-            while (iteracao <= numeroMaxIteracao)
+            while (iteracaoInicial <= numeroMaxIteracao)
             {
                 pousoEmergencialPista3NaInteracao = false;
 
@@ -59,7 +60,7 @@ namespace SimuladorDeAeroporto
                 BaixarNivelGasolina(pista2);
                 BaixarNivelGasolina(pista3);
 
-                iteracao++;
+                iteracaoInicial++;
             }
 
             var logAvioesDecolados = avioesDecolados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
@@ -169,15 +170,11 @@ namespace SimuladorDeAeroporto
                         return true;
                     }
                     else
-                    {
                         return false;
-                    }
                 }
             }
             else
-            {
                 return false;
-            }
         }
 
         private static void RealizarPousoDeEmergenciaPista3(Pista pista)
@@ -213,13 +210,13 @@ namespace SimuladorDeAeroporto
 
             foreach (var aviao in _avioesCaidosAterrissar1)
             {
-                avioesCaidos.Add(new Tuple<int, int>(aviao.Id_Aviao, pista.Id_Pista));
+                avioesCaidos.Add(new Tuple<int, int, int?>(aviao.Id_Aviao, pista.Id_Pista, aviao.NivelGasolina));
                 RemoverAviaoCaidoFila(pista.Pousar1, aviao);
             }
 
             foreach (var aviao in _avioesCaidosAterrissar2)
             {
-                avioesCaidos.Add(new Tuple<int, int>(aviao.Id_Aviao, pista.Id_Pista));
+                avioesCaidos.Add(new Tuple<int, int, int?>(aviao.Id_Aviao, pista.Id_Pista, aviao.NivelGasolina));
                 RemoverAviaoCaidoFila(pista.Pousar2, aviao);
             }
         }
@@ -251,9 +248,7 @@ namespace SimuladorDeAeroporto
                 var aviaoAux = aviao != null ? aviao : fila.First();
 
                 if (aviao == null)
-                {
                     fila.Dequeue();
-                }
                 else
                 {
                     var queue_aux = new Queue<Aviao>();
@@ -277,10 +272,10 @@ namespace SimuladorDeAeroporto
             switch (tipoFila)
             {
                 case FilaEnum.Decolar:
-                    avioesDecolados.Add(new Tuple<int, int>(aviaoAux.Id_Aviao, idPista));
+                    avioesDecolados.Add(new Tuple<int, int, int?>(aviaoAux.Id_Aviao, idPista, aviaoAux.NivelGasolina));
                     break;
                 case FilaEnum.Pousar:
-                    avioesPousados.Add(new Tuple<int, int>(aviaoAux.Id_Aviao, idPista));
+                    avioesPousados.Add(new Tuple<int, int, int?>(aviaoAux.Id_Aviao, idPista, aviaoAux.NivelGasolina));
                     break;
                 default:
                     break;
@@ -313,7 +308,7 @@ namespace SimuladorDeAeroporto
 
                 if (tipo == FilaEnum.Pousar)
                 {
-                     aviao = new Aviao(true)
+                    aviao = new Aviao(true)
                     {
                         Id_Aviao = idAviao
                     };
@@ -334,13 +329,12 @@ namespace SimuladorDeAeroporto
                 idAviao += 2;
             }
 
-
-
             return lista;
         }
 
 
         /// <summary>
+        /// Método para imprimir a cada iteração as seguintes informações:
         /// a) o conteúdo de cada fila;
         /// b) o tempo médio de espera para decolagem;
         /// c) o tempo médio de espera para aterrissagem; e
