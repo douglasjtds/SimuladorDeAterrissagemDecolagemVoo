@@ -12,7 +12,7 @@ namespace SimuladorDeAeroporto
     public class Program
     {
         #region [variáveis globais]
-        private static int numeroMaxIteracao = 10000;
+        private static int numeroMaxIteracao = 1000000;
         private static int idMaximoAterrissagem = 1;
         private static int idMaximoDecolagem = 2;
         private static bool pousoEmergencialPista3NaInteracao = false;
@@ -65,6 +65,7 @@ namespace SimuladorDeAeroporto
             var logAvioesDecolados = avioesDecolados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
             var logAvioesPousados = avioesPousados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
             var logAvioesCaidos = avioesCaidos.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
+
         }
 
         private static void BaixarNivelGasolina(Pista pista)
