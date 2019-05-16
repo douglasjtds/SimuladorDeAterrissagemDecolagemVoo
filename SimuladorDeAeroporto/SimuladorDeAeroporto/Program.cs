@@ -64,8 +64,13 @@ namespace SimuladorDeAeroporto
             }
 
             var logAvioesDecolados = avioesDecolados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
+            Console.WriteLine("Quantidade de aviões decolados: {0}", logAvioesDecolados.Count());
+
             var logAvioesPousados = avioesPousados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
+            Console.WriteLine("Quantidade de aviões pousados: {0}", logAvioesPousados.Count());
+
             var logAvioesCaidos = avioesCaidos.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
+            Console.WriteLine("Quantidade de aviões que caíram: {0}", logAvioesCaidos.Count());
 
         }
 
