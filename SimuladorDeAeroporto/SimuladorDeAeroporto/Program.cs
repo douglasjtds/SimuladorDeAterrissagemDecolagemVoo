@@ -62,8 +62,9 @@ namespace SimuladorDeAeroporto
                 iteracao++;
             }
 
-            var log = avioesDecolados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
-
+            var logAvioesDecolados = avioesDecolados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
+            var logAvioesPousados = avioesPousados.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
+            var logAvioesCaidos = avioesCaidos.GroupBy(p => p.Item2).Select(p => new { pista = p.Key, quantidade = p.Count() });
         }
 
         private static void BaixarNivelGasolina(Pista pista)
@@ -305,22 +306,34 @@ namespace SimuladorDeAeroporto
             int idAviao = tipo == FilaEnum.Pousar ? idMaximoAterrissagem : idMaximoDecolagem;
             Random rnd = new Random();
             int quantidadeAvioes = rnd.Next(4);
-
+            Aviao aviao;
             for (int i = 0; i < quantidadeAvioes; i++)
             {
-                Aviao aviao = new Aviao
-                {
-                    Id_Aviao = idAviao
-                };
 
-                idAviao += 2;
+                if (tipo == FilaEnum.Pousar)
+                {
+                     aviao = new Aviao(true)
+                    {
+                        Id_Aviao = idAviao
+                    };
+
+                    idMaximoAterrissagem = idAviao;
+                }
+                else
+                {
+                    aviao = new Aviao
+                    {
+                        Id_Aviao = idAviao
+                    };
+
+                    idMaximoDecolagem = idAviao;
+                }
+
                 lista.Add(aviao);
+                idAviao += 2;
             }
 
-            if (tipo == FilaEnum.Pousar)
-                idMaximoAterrissagem = idAviao;
-            else
-                idMaximoDecolagem = idAviao;
+
 
             return lista;
         }

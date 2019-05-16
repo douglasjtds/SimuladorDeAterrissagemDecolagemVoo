@@ -8,31 +8,22 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
 {
     public class Aviao
     {
-        public int Id_Aviao;
+        public Aviao(bool possuiAviaoAterrissando)
+        {
+            NivelGasolina = GeraValorAleatorioParaGasolina();
+            IsAviaoDecolando = true;
 
-        public int? NivelGasolina; //quantidade de unidades de tempo que pode permanecer no ar (de 1 a 20)
-
-        //public int ReferenteAPista;
-
-        /// <summary>
-        /// Referente ao Id_Aviao: números pares são aviões decolando, números ímpares são aviões pousando.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsAviaoDecolando {
-            get {
-                if (this.Id_Aviao % 2 == 0)
-                {
-                    NivelGasolina = null;
-                    return true;
-                }
-                else
-                {
-                    NivelGasolina = GeraValorAleatorioParaGasolina();
-                    return false;
-                }
-            }
-            private set {; }
         }
+
+        public Aviao()
+        {
+            IsAviaoDecolando = false;
+        }
+
+        public int Id_Aviao { get; set; }
+        public bool IsAviaoDecolando { get; set; }
+        public int? NivelGasolina { get; set; }
+
 
         private int GeraValorAleatorioParaGasolina()
         {
