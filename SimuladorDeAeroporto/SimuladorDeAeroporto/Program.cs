@@ -339,7 +339,7 @@ namespace SimuladorDeAeroporto
             var avioesPousadosPista2 = logAvioesPousados.FirstOrDefault(p => p.pista == idPista2)?.quantidade ?? 0;
             var avioesPousadosPista3 = logAvioesPousados.FirstOrDefault(p => p.pista == idPista3)?.quantidade ?? 0;
 
-            var mediaIntercaoDecolagemPista1 = Math.Round(avioesDecoladosPista1 > 0 ? avioesDecoladosPista1 / (iteracaoInicial * 1.0) : 0, 2);
+            var mediaIntercaoDecolagemPista1 = avioesDecoladosPista1 > 0 ? avioesDecoladosPista1 / iteracaoInicial : 0;
             var mediaIntercaoDecolagemPista2 = Math.Round(avioesDecoladosPista2 > 0 ? avioesDecoladosPista2 / (iteracaoInicial * 1.0) : 0, 2);
             var mediaIntercaoDecolagemPista3 = Math.Round(avioesDecoladosPista3 > 0 ? avioesDecoladosPista3 / (iteracaoInicial * 1.0) : 0, 2);
 
@@ -347,23 +347,24 @@ namespace SimuladorDeAeroporto
             var mediaIntercaoPousadosPista2 = Math.Round(avioesPousadosPista2 > 0 ? avioesPousadosPista2 / (iteracaoInicial * 1.0) : 0, 2);
             var mediaIntercaoPousadosPista3 = Math.Round(avioesPousadosPista3 > 0 ? avioesPousadosPista3 / (iteracaoInicial * 1.0) : 0, 2);
 
-            Console.WriteLine("----------------------------------------------------------------------------------------------------");
             Console.WriteLine("\n");
             Console.WriteLine("Decolagem pista 1: {0} aviões", avioesDecoladosPista1);
             Console.WriteLine("Decolagem pista 2: {0} aviões", avioesDecoladosPista2);
             Console.WriteLine("Decolagem pista 3: {0} aviões", avioesDecoladosPista3);
+            Console.WriteLine("\n");
             Console.WriteLine("Aterrissagem pista 1: {0} aviões", avioesPousadosPista1);
             Console.WriteLine("Aterrissagem pista 2: {0} aviões", avioesPousadosPista2);
-            Console.WriteLine("Aviões que aterrissaram sem reserva de combustível 3: {0} aviões", avioesPousadosPista3);
+            Console.WriteLine("\n");
+            Console.WriteLine("Aviões que aterrissaram sem reserva de combustível na pista 3: {0} aviões", avioesPousadosPista3);
             Console.WriteLine("Aviões caídos: {0} aviões", avioesCaidos.Count());
             Console.WriteLine("\n");
-            Console.WriteLine("O tempo médio de espera para decolagem pista 1: {0} unidade de tempo", mediaIntercaoDecolagemPista1);
-            Console.WriteLine("O tempo médio de espera para decolagem pista 2: {0} unidade de tempo", mediaIntercaoDecolagemPista2);
-            Console.WriteLine("O tempo médio de espera para decolagem pista 3: {0} unidade de tempo", mediaIntercaoDecolagemPista3);
+            Console.WriteLine("O tempo médio de espera para decolagem pista 1: {0} unidades de tempo", mediaIntercaoDecolagemPista1);
+            Console.WriteLine("O tempo médio de espera para decolagem pista 2: {0} unidades de tempo", mediaIntercaoDecolagemPista2);
+            Console.WriteLine("O tempo médio de espera para decolagem pista 3: {0} unidades de tempo", mediaIntercaoDecolagemPista3);
             Console.WriteLine("\n");
-            Console.WriteLine("O tempo médio de espera para aterrissagem pista1 {0} unidade de tempo", mediaIntercaoPousadosPista1);
-            Console.WriteLine("O tempo médio de espera para aterrissagem pista2 {0} unidade de tempo", mediaIntercaoPousadosPista2);
-            Console.WriteLine("O tempo médio de espera para aterrissagem pista3 {0} unidade de tempo", mediaIntercaoPousadosPista3);
+            Console.WriteLine("O tempo médio de espera para aterrissagem pista 1: {0} unidades de tempo", mediaIntercaoPousadosPista1);
+            Console.WriteLine("O tempo médio de espera para aterrissagem pista 2: {0} unidades de tempo", mediaIntercaoPousadosPista2);
+            Console.WriteLine("O tempo médio de espera para aterrissagem pista 3: {0} unidades de tempo", mediaIntercaoPousadosPista3);
             Console.WriteLine("\n");
             Console.WriteLine("----------------------------------------------------------------------------------------------------");
         }
