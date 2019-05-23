@@ -1,4 +1,5 @@
-﻿using SimuladorDeAeroporto.Interfaces;
+﻿using SimuladorDeAeroporto.Domain;
+using SimuladorDeAeroporto.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,25 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
 {
     public class Fila : IFila
     {
-        public int ReferenteAPista;
-
-        private class Celula
-        {
-            internal Object item;
-            internal Celula prox;
-        }
         private Celula frente;
         private Celula tras;
+        public FilaEnum tipo;
 
-        #region [Métodos herdados da interface base]
-        public void CriaFilaVazia()
+        public Fila()
         {
             frente = new Celula();
             tras = frente;
             frente.prox = null;
         }
 
+        #region [Métodos herdados da interface base]
+
         public void Enfileira(object x)
         {
-            tras.prox = new Celula();
-            tras = tras.prox;
-            tras.item = x;
-            tras.prox = null;
+            this.tras.prox = new Celula();
+            this.tras = this.tras.prox;
+            this.tras.item = x;
+            this.tras.prox = null;
         }
 
         public Object Desenfileira()
@@ -51,5 +47,11 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
             return (frente == tras);
         }
         #endregion
+
+        private class Celula
+        {
+            internal Object item;
+            internal Celula prox;
+        }
     }
 }

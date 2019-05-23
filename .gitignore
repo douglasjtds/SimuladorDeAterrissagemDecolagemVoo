@@ -360,3 +360,8 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/visualstudio,visualstudiocode
+SimuladorDeAeroporto/SimuladorDeAeroporto/obj/Debug/SimuladorDeAeroporto.csprojAssemblyReference.cache
+SimuladorDeAeroporto/SimuladorDeAeroporto/obj/Debug/SimuladorDeAeroporto.csproj.CoreCompileInputs.cache
+SimuladorDeAeroporto/.vs/SimuladorDeAeroporto/v16/.suo
+SimuladorDeAeroporto/SimuladorDeAeroporto/obj/Debug/SimuladorDeAeroporto.csproj.CoreCompileInputs.cache
+SimuladorDeAeroporto/SimuladorDeAeroporto/obj/Debug/SimuladorDeAeroporto.csprojAssemblyReference.cache
