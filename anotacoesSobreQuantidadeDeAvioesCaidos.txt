@@ -1,0 +1,4 @@
+100 = aviões caídos
+1.000 = aviões caídos
+10.000 = 99 aviões caídos
+100.000 = DEMOROU DEMAIS PRA RODAR

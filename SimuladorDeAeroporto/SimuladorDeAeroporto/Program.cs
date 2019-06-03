@@ -12,7 +12,7 @@ namespace SimuladorDeAeroporto
     public class Program
     {
         #region [variáveis globais]
-        private static int numeroMaxIteracao = 1000000;
+        private static int numeroMaxIteracao = 100000;
         private static int idMaximoAterrissagem = 1;
         private static int idMaximoDecolagem = 2;
         private static bool pousoEmergencialPista3NaInteracao = false;
@@ -26,7 +26,7 @@ namespace SimuladorDeAeroporto
         private const int idPista2 = 2;
         private const int idPista3 = 3;
 
-        private static int iteracaoInicial = 1;
+        private static int iteracaoAtual = 1;
         #endregion
 
         static void Main(string[] args)
@@ -44,7 +44,7 @@ namespace SimuladorDeAeroporto
             Console.WriteLine("Inicializando aeroporto...");
             Thread.Sleep(100);
 
-            while (iteracaoInicial <= numeroMaxIteracao)
+            while (iteracaoAtual <= numeroMaxIteracao)
             {
                 pousoEmergencialPista3NaInteracao = false;
 
@@ -60,7 +60,7 @@ namespace SimuladorDeAeroporto
                 BaixarNivelGasolina(pista2);
                 BaixarNivelGasolina(pista3);
 
-                iteracaoInicial++;
+                iteracaoAtual++;
                 ImprimirPeriodicamente();
             }
         }
@@ -339,13 +339,13 @@ namespace SimuladorDeAeroporto
             var avioesPousadosPista2 = logAvioesPousados.FirstOrDefault(p => p.pista == idPista2)?.quantidade ?? 0;
             var avioesPousadosPista3 = logAvioesPousados.FirstOrDefault(p => p.pista == idPista3)?.quantidade ?? 0;
 
-            var mediaIntercaoDecolagemPista1 = avioesDecoladosPista1 > 0 ? avioesDecoladosPista1 / iteracaoInicial : 0;
-            var mediaIntercaoDecolagemPista2 = Math.Round(avioesDecoladosPista2 > 0 ? avioesDecoladosPista2 / (iteracaoInicial * 1.0) : 0, 2);
-            var mediaIntercaoDecolagemPista3 = Math.Round(avioesDecoladosPista3 > 0 ? avioesDecoladosPista3 / (iteracaoInicial * 1.0) : 0, 2);
+            var mediaIntercaoDecolagemPista1 = avioesDecoladosPista1 > 0 ? avioesDecoladosPista1 / iteracaoAtual : 0;
+            var mediaIntercaoDecolagemPista2 = Math.Round(avioesDecoladosPista2 > 0 ? avioesDecoladosPista2 / (iteracaoAtual * 1.0) : 0, 2);
+            var mediaIntercaoDecolagemPista3 = Math.Round(avioesDecoladosPista3 > 0 ? avioesDecoladosPista3 / (iteracaoAtual * 1.0) : 0, 2);
 
-            var mediaIntercaoPousadosPista1 = Math.Round(avioesPousadosPista1 > 0 ? avioesPousadosPista1 / (iteracaoInicial * 1.0) : 0, 2);
-            var mediaIntercaoPousadosPista2 = Math.Round(avioesPousadosPista2 > 0 ? avioesPousadosPista2 / (iteracaoInicial * 1.0) : 0, 2);
-            var mediaIntercaoPousadosPista3 = Math.Round(avioesPousadosPista3 > 0 ? avioesPousadosPista3 / (iteracaoInicial * 1.0) : 0, 2);
+            var mediaIntercaoPousadosPista1 = Math.Round(avioesPousadosPista1 > 0 ? avioesPousadosPista1 / (iteracaoAtual * 1.0) : 0, 2);
+            var mediaIntercaoPousadosPista2 = Math.Round(avioesPousadosPista2 > 0 ? avioesPousadosPista2 / (iteracaoAtual * 1.0) : 0, 2);
+            var mediaIntercaoPousadosPista3 = Math.Round(avioesPousadosPista3 > 0 ? avioesPousadosPista3 / (iteracaoAtual * 1.0) : 0, 2);
 
             Console.WriteLine("\n");
             Console.WriteLine("Decolagem pista 1: {0} aviões", avioesDecoladosPista1);
