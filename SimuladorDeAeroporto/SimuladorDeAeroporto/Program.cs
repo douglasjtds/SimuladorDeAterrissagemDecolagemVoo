@@ -42,7 +42,7 @@ namespace SimuladorDeAeroporto
             #endregion
 
             Console.WriteLine("Inicializando aeroporto...");
-            Thread.Sleep(100);
+            Thread.Sleep(500);
 
             while (iteracaoAtual <= numeroMaxIteracao)
             {
