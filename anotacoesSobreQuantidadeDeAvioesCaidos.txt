@@ -3,4 +3,5 @@ Média de aviões caídos de acordo com cada quantidade de iteração
 100 = 1 avião caído
 1.000 = 6 aviões caídos
 10.000 = 127 aviões caídos
-100.000 = DEMOROU DEMAIS PRA RODAR
+100.000 = 646 aviões caídos,  175.804 avioesDecolados e avioesPousados 122.945
+            601, 175.598 e 123.254

@@ -58,7 +58,7 @@ namespace SimuladorDeAeroporto
 
                 BaixarNivelGasolina(pista1);
                 BaixarNivelGasolina(pista2);
-                BaixarNivelGasolina(pista3);
+                //BaixarNivelGasolina(pista3); //não precisa ser chamado porque só será realizado pouso de emergência, quando o nível de gasolina já estiver igual a 1.
 
                 iteracaoAtual++;
                 ImprimirPeriodicamente();
