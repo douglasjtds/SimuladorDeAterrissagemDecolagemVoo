@@ -20,6 +20,9 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
             IsAviaoDecolando = false;
         }
 
+        /// <summary>
+        /// Id_Aviao: números pares são aviões decolando, números ímpares são aviões pousando.
+        /// </summary>
         public int Id_Aviao { get; set; }
         public bool IsAviaoDecolando { get; set; }
         public int? NivelGasolina { get; set; }
