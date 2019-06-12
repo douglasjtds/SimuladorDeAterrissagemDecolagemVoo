@@ -12,7 +12,6 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
         {
             NivelGasolina = GeraValorAleatorioParaGasolina();
             IsAviaoDecolando = true;
-
         }
 
         public Aviao()
@@ -31,7 +30,7 @@ namespace SimuladorDeAeroporto.Classes_De_Negócio
         private int GeraValorAleatorioParaGasolina()
         {
             Random rnd = new Random();
-            int valorCombustivel = rnd.Next(21);
+            int valorCombustivel = rnd.Next(1, 21); //deve gerar valor aleatório para a gasolina, podendo ser de 1 a 20
             return valorCombustivel;
         }
     }
