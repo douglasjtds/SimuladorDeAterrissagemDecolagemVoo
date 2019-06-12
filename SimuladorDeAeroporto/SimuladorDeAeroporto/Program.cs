@@ -84,6 +84,9 @@ namespace SimuladorDeAeroporto
             RealizarPousoDeEmergenciaPista3(pista);
             var realizouPousoEmergencialPistaAtual = RealizarPousoEmergencialPistaAtual(pista);
 
+            Aviao aviaoPista1;
+            Aviao aviaoPista2;
+
             switch (pista.Id_Pista)
             {
                 case idPista1:
@@ -96,10 +99,23 @@ namespace SimuladorDeAeroporto
                         }
                         else
                         {
-                            if (pista.Pousar1.Count > pista.Pousar2.Count)
-                                RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar);
+                            if (pista.Pousar1.Any() && pista.Pousar2.Any())
+                            {
+                                aviaoPista1 = pista.Pousar1.First();
+                                aviaoPista2 = pista.Pousar2.First();
+
+                                if (aviaoPista1.NivelGasolina <  aviaoPista2.NivelGasolina)
+                                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar, aviaoPista1);
+                                else
+                                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar, aviaoPista2);
+                            }
                             else
-                                RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar);
+                            {
+                                if (pista.Pousar1.Count > pista.Pousar2.Count)
+                                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar);
+                                else
+                                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar);
+                            }
 
                             aviaoDecolouPista1 = false;
                         }
@@ -115,10 +131,23 @@ namespace SimuladorDeAeroporto
                         }
                         else
                         {
-                            if (pista.Pousar1.Count > pista.Pousar2.Count)
-                                RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar);
+                            if (pista.Pousar1.Any() && pista.Pousar2.Any())
+                            {
+                                aviaoPista1 = pista.Pousar1.First();
+                                aviaoPista2 = pista.Pousar2.First();
+
+                                if (aviaoPista1.NivelGasolina < aviaoPista2.NivelGasolina)
+                                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar, aviaoPista1);
+                                else
+                                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar, aviaoPista2);
+                            }
                             else
-                                RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar);
+                            {
+                                if (pista.Pousar1.Count > pista.Pousar2.Count)
+                                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar);
+                                else
+                                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar);
+                            }
 
                             aviaoDecolouPista2 = false;
                         }
