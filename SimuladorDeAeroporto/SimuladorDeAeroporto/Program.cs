@@ -163,6 +163,11 @@ namespace SimuladorDeAeroporto
                 return false;
         }
 
+        /// <summary>
+        /// Confere se vai ser preciso realizar pouso de emergência na pista 3. Se, e somente se, for necessário (algum avião 
+        /// nas filas com nível de gasolina = 1) chama a função RemoverAviaoFila passando o idPista3, para pousar.
+        /// </summary>
+        /// <param name="pista"></param>
         private static void RealizarPousoDeEmergenciaPista3(Pista pista)
         {
             var aviaoSemGasolina = new Aviao();

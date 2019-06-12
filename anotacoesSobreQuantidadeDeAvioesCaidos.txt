@@ -1,4 +1,4 @@
-Média de aviões caídos de acordo com cada quantidade de iteração
+﻿Média de aviões caídos de acordo com cada quantidade de iteração
 
 100 = 1 avião caído
 1.000 = 6 aviões caídos
