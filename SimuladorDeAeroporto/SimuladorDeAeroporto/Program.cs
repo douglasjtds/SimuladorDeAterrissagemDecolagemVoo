@@ -12,7 +12,7 @@ namespace SimuladorDeAeroporto
     public class Program
     {
         #region [variáveis globais]
-        private static int numeroMaxIteracao = 1000000;
+        private static int numeroMaxIteracao = 100000;
         private static int idMaximoAterrissagem = 1;
         private static int idMaximoDecolagem = 2;
         private static bool pousoEmergencialPista3NaInteracao = false;
