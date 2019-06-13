@@ -12,7 +12,7 @@ namespace SimuladorDeAeroporto
     public class Program
     {
         #region [variáveis globais]
-        private static int numeroMaxIteracao = 100000;
+        private static int numeroMaxIteracao = 1000000;
         private static int idMaximoAterrissagem = 1;
         private static int idMaximoDecolagem = 2;
         private static bool pousoEmergencialPista3NaInteracao = false;
@@ -84,8 +84,8 @@ namespace SimuladorDeAeroporto
             RealizarPousoDeEmergenciaPista3(pista);
             var realizouPousoEmergencialPistaAtual = RealizarPousoEmergencialPistaAtual(pista);
 
-            Aviao aviaoPista1;
-            Aviao aviaoPista2;
+            Aviao aviaoComMenorNivelDeGasolinaPista1;
+            Aviao aviaoComMenorNivelDeGasolinaPista2;
 
             switch (pista.Id_Pista)
             {
@@ -101,13 +101,13 @@ namespace SimuladorDeAeroporto
                         {
                             if (pista.Pousar1.Any() && pista.Pousar2.Any())
                             {
-                                aviaoPista1 = pista.Pousar1.First();
-                                aviaoPista2 = pista.Pousar2.First();
+                                aviaoComMenorNivelDeGasolinaPista1 = pista.Pousar1.First();
+                                aviaoComMenorNivelDeGasolinaPista2 = pista.Pousar2.First();
 
-                                if (aviaoPista1.NivelGasolina <  aviaoPista2.NivelGasolina)
-                                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar, aviaoPista1);
+                                if (aviaoComMenorNivelDeGasolinaPista1.NivelGasolina <  aviaoComMenorNivelDeGasolinaPista2.NivelGasolina)
+                                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar, aviaoComMenorNivelDeGasolinaPista1);
                                 else
-                                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar, aviaoPista2);
+                                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar, aviaoComMenorNivelDeGasolinaPista2);
                             }
                             else
                             {
@@ -133,13 +133,13 @@ namespace SimuladorDeAeroporto
                         {
                             if (pista.Pousar1.Any() && pista.Pousar2.Any())
                             {
-                                aviaoPista1 = pista.Pousar1.First();
-                                aviaoPista2 = pista.Pousar2.First();
+                                aviaoComMenorNivelDeGasolinaPista1 = pista.Pousar1.First();
+                                aviaoComMenorNivelDeGasolinaPista2 = pista.Pousar2.First();
 
-                                if (aviaoPista1.NivelGasolina < aviaoPista2.NivelGasolina)
-                                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar, aviaoPista1);
+                                if (aviaoComMenorNivelDeGasolinaPista1.NivelGasolina < aviaoComMenorNivelDeGasolinaPista2.NivelGasolina)
+                                    RemoverAviaoFila(pista.Pousar1, pista.Id_Pista, FilaEnum.Pousar, aviaoComMenorNivelDeGasolinaPista1);
                                 else
-                                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar, aviaoPista2);
+                                    RemoverAviaoFila(pista.Pousar2, pista.Id_Pista, FilaEnum.Pousar, aviaoComMenorNivelDeGasolinaPista2);
                             }
                             else
                             {
